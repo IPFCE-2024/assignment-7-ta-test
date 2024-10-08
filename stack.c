@@ -1,24 +1,38 @@
 #include "stack.h"
 
-void initialize(stack *s) {
-  // implement initialize here
-}
+void initialize(stack *s) { s->head = NULL; }
+bool empty(stack *s) { return s->head == NULL; }
+bool full(stack *s) { return false; } // never full
 
-void push(int x, stack *s) {
-  // implement push here
+void push(int element, stack *s) {
+
+  node *n = (node *)malloc(sizeof(node));
+  if (n == NULL) {
+    fprintf(stderr, "malloc failed on line: %d\n", __LINE__ - 2);
+    exit(1);
+  }
+  n->data = element;
+  n->next = s->head;
+  s->head = n;
 }
 
 int pop(stack *s) {
-  // implement pop here
-  return -1;
+  if (empty(s)) {
+    return -1;
+  }
+  node *temp = s->head;
+  int element = temp->data;
+  s->head = temp->next;
+  free(temp);
+  return element;
 }
 
-bool empty(stack *s) {
-  // implement empty here
-  return false;
-}
-
-bool full(stack *s) {
-  // implement full here
-  return false;
+void free_stack(stack *s) {
+  node *n = s->head;
+  while (n != NULL) {
+    node *next = n->next;
+    free(n);
+    n = next;
+  }
+  s->head = NULL; // not really necessary, but good practice
 }

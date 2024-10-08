@@ -1,9 +1,11 @@
 #pragma once
 
 #include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 typedef struct node {
-  int data;
+  long long int data;
   struct node *next;
 } node;
 
@@ -16,3 +18,5 @@ void push(int element, stack *s);
 int pop(stack *s);
 bool empty(stack *s);
 bool full(stack *s);
+
+void free_stack(stack *s);
