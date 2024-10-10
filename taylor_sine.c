@@ -1,8 +1,14 @@
 #include "taylor_sine.h"
 #include <stdio.h>
-#include <math.h>
 #include <stdbool.h>
-#include <assert.h>
+
+double power(double x, int n) {
+  double result = 1.0;
+  for (int i = 0; i < n; i++) {
+    result *= x;
+  }
+  return result;
+}
 
 long long factorial(int n) { // n! remember to use long long
   long long result = 1;
@@ -17,9 +23,9 @@ double taylor_sine(double x, int n) {
   double sum = 0.0;
   for (int i = 0; i < n; i++) {
     if (i % 2 == 0) {
-      sum += pow(x, 2 * i + 1) / factorial(2 * i + 1);
+      sum += power(x, 2 * i + 1) / factorial(2 * i + 1);
     } else {
-      sum -= pow(x, 2 * i + 1) / factorial(2 * i + 1);
+      sum -= power(x, 2 * i + 1) / factorial(2 * i + 1);
     }
   }
   return sum;
